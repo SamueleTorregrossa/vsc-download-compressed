@@ -1,12 +1,18 @@
-# README
+# vsc-download-compressed README
+
+## Visual Studio Code Marketplace
+You can find this extension on the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=samueletorregrossa.compress-download-extension).
 
 ## Features
 
 This extension provides the following features:
-- Compress files or directories on remote servers.
-- Download the compressed files to your local machine.
+- Download compressed files or directories from remote servers.
 
-When connected to a remote SSH environment in Visual Studio Code, you can right-click on any file or directory in the Explorer context menu and select "Compress and Download". The extension will compress the selected item on the remote server and transfer the compressed file to your local Downloads directory using `rsync`.
+When connected to a remote SSH environment in Visual Studio Code, you can right-click on any file or directory in the Explorer context menu and select "Compress and Download". The extension will use `rsync` to transfer the selected item from the remote server to your local Downloads directory.
+
+## Benefits
+
+- **Up to 10x Faster**: This extension can be up to 10 times faster than the built-in VS Code "Download" functionality because it compresses the files before transferring them, reducing the amount of data that needs to be transferred.
 
 ## Requirements
 
@@ -43,7 +49,7 @@ This extension currently does not add any VS Code settings.
 ### 0.0.1
 
 - Initial release of "compress-extension".
-- Supports compressing and downloading files and directories from remote SSH environments.
+- Supports downloading compressed files and directories from remote SSH environments.
 
 ## Usage
 
@@ -53,4 +59,4 @@ This extension currently does not add any VS Code settings.
 2. **Compress and Download**:
    - Right-click on a file or directory in the Explorer view.
    - Select "Compress and Download" from the context menu.
-   - The extension will compress the selected item on the remote server and transfer it to your local Downloads directory.
+   - The extension will use `rsync` to transfer the selected item from the remote server to your local Downloads directory.
