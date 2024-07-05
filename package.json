@@ -1,8 +1,8 @@
 {
   "name": "compress-download-extension",
-  "displayName": "Download Compressed",
-  "description": "A simple extension to compress files or directories on remote servers",
-  "version": "0.0.3",
+  "displayName": "SSH Fast Dowload",
+  "description": "A simple extension to more quickly download files from a remote server in VSCode.",
+  "version": "0.0.5",
   "publisher": "samueletorregrossa",
   "icon": "icon.png",
   "engines": {
