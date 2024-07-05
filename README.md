@@ -1,12 +1,18 @@
-# README
+# vsc-download-compressed README
+
+## Visual Studio Code Marketplace
+You can find this extension on the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=samueletorregrossa.compress-download-extension).
 
 ## Features
 
 This extension provides the following features:
-- Compress files or directories on remote servers.
-- Download the compressed files to your local machine.
+- Download compressed files or directories from remote servers.
 
-When connected to a remote SSH environment in Visual Studio Code, you can right-click on any file or directory in the Explorer context menu and select "Compress and Download". The extension will compress the selected item on the remote server and transfer the compressed file to your local Downloads directory using `rsync`.
+When connected to a remote SSH environment in Visual Studio Code, you can right-click on any file or directory in the Explorer context menu and select "Compress and Download". The extension will use `rsync` to transfer the selected item from the remote server to your local Downloads directory.
+
+## Benefits
+
+- **Up to 10x Faster**: This extension can be up to 10 times faster than the built-in VS Code "Download" functionality because it compresses the files before transferring them, reducing the amount of data that needs to be transferred.
 
 ## Requirements
 
@@ -43,7 +49,7 @@ This extension currently does not add any VS Code settings.
 ### 0.0.1
 
 - Initial release of "compress-extension".
-- Supports compressing and downloading files and directories from remote SSH environments.
+- Supports downloading compressed files and directories from remote SSH environments.
 
 ## Usage
 
@@ -53,27 +59,4 @@ This extension currently does not add any VS Code settings.
 2. **Compress and Download**:
    - Right-click on a file or directory in the Explorer view.
    - Select "Compress and Download" from the context menu.
-   - The extension will compress the selected item on the remote server and transfer it to your local Downloads directory.
-
-## Following Extension Guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For More Information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy your newly enhanced remote development experience!**
-
-This README provides a clear description of what the extension does, how to use it, and any requirements or issues to be aware of. It also includes installation instructions for packaging and installing the extension manually.
+   - The extension will use `rsync` to transfer the selected item from the remote server to your local Downloads directory.
