@@ -2,7 +2,7 @@
   "name": "compress-download-extension",
   "displayName": "Download Compressed",
   "description": "A simple extension to compress files or directories on remote servers",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "samueletorregrossa",
   "icon": "icon.png",
   "engines": {
