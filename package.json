@@ -1,0 +1,47 @@
+{
+  "name": "compress-download-extension",
+  "displayName": "Download Compressed",
+  "description": "A simple extension to compress files or directories on remote servers",
+  "version": "0.0.2",
+  "publisher": "samueletorregrossa",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": ["Other"],
+  "extensionKind": ["ui", "workspace"],
+  "activationEvents": [
+    "onCommand:extension.compress_download"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.compress_download",
+        "title": "Compress and Download"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.compress_download",
+          "when": "remoteName == 'ssh-remote'",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.3",
+    "vscode": "^1.1.37",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.60.0",
+    "@types/mocha": "^8.2.2"
+  }
+}
