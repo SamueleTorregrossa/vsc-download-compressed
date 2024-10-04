@@ -13,7 +13,7 @@
     "url": "https://github.com/SamueleTorregrossa/vsc-download-compressed"
   },
   "categories": ["Other"],
-  "extensionKind": ["ui", "workspace"],
+  "extensionKind": ["ui"],
   "activationEvents": [
     "onCommand:extension.compress_download"
   ],
