@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.12]
+### Changed
+- Changed extension icon to a more appropriate one.
+
 ## [0.0.9]
 ### Added
 - Check for `rsync` installation on the local machine.

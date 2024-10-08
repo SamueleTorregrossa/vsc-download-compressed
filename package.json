@@ -1,8 +1,8 @@
 {
   "name": "compress-download-extension",
-  "displayName": "SSH Fast Dowload",
+  "displayName": "Remote - SSH: Fast Download",
   "description": "A simple extension to more quickly download files from a remote server in VSCode.",
-  "version": "0.0.9",
+  "version": "0.0.12",
   "publisher": "samueletorregrossa",
   "icon": "icon.png",
   "engines": {
