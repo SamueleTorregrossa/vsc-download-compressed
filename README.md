@@ -28,7 +28,7 @@ When connected to a remote SSH environment in Visual Studio Code, you can right-
    npm install -g typescript
    npm i --save-dev @types/jest
    npm install -g vsce
-   vsce package
+   sudo vsce package
    ```
 
 2. **Install the Extension**:
@@ -36,6 +36,13 @@ When connected to a remote SSH environment in Visual Studio Code, you can right-
    - Go to the Extensions view (`Ctrl+Shift+X`).
    - Click on the three-dot menu in the top-right corner and select "Install from VSIX...".
    - Select the generated `.vsix` file from the previous step.
+
+## Publishing (Only for Maintainers)
+
+1. **Publish the Extension**:
+   ```sh
+   sudo vsce publish
+   ```
 
 ## Extension Settings
 
