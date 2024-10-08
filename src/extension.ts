@@ -1,51 +1,59 @@
 import * as vscode from 'vscode';
 import { exec, ChildProcess } from 'child_process';
 import * as path from 'path';
+import * as os from 'os';
 
 export function activate(context: vscode.ExtensionContext) {
   const outputChannel = vscode.window.createOutputChannel("Compress Download");
 
-  const disposable = vscode.commands.registerCommand('extension.compress_download', (uri: vscode.Uri) => {
+  const disposable = vscode.commands.registerCommand('extension.compress_download', async (uri: vscode.Uri) => {
+    // Check if the OS is Windows
+    if (os.platform() === 'win32') {
+      vscode.window.showInformationMessage('Windows is currently not supported by this extension.');
+      return;
+    }
+
     // Extract remote name and file path from URI
     const remoteName = uri.authority.split('+')[1]; // Extract 'wse1' from 'ssh-remote+wse1'
     const filePath = uri.path; // Get the file path
 
-    // Ensure a proper destination directory
-    // const destinationPath = path.join(process.env.HOME || '/home', 'Downloads');
-
-    // just prompt to input text with home/username/Downloads as default
-    const destinationPath = vscode.window.showInputBox({
+    // Prompt user to input the destination path, default to Downloads folder
+    const destinationPath = await vscode.window.showInputBox({
       prompt: 'Enter the destination path',
-      value: path.join(process.env.HOME || '/home', 'Downloads')
+      value: path.join(process.env.HOME || process.env.USERPROFILE || '/home', 'Downloads')
     });
 
-    const remoteFilePath = `${remoteName}:${filePath}`; // Remote file path
-    const rsyncCommand = `rsync -P -avz "${remoteFilePath}" "${destinationPath}"`;
+    if (!destinationPath) {
+      vscode.window.showErrorMessage('No destination path provided');
+      return;
+    }
+
+    const remoteFilePath = filePath; // Remote file path
+    const command = `rsync -P -avz "${remoteName}:${remoteFilePath}" "${destinationPath}"`;
 
     outputChannel.show(true);
     outputChannel.clear();
-    // output all the uri information
-    outputChannel.appendLine(`Running rsync command: ${rsyncCommand}`);
+    outputChannel.appendLine(`Running command: ${command}`);
 
-    const rsyncProcess: ChildProcess = exec(rsyncCommand);
+    const childProcess: ChildProcess = exec(command);
 
-    if (rsyncProcess.stdout) {
-      rsyncProcess.stdout.on('data', (data) => {
+    if (childProcess.stdout) {
+      childProcess.stdout.on('data', (data) => {
         outputChannel.append(data.toString());
       });
     }
 
-    if (rsyncProcess.stderr) {
-      rsyncProcess.stderr.on('data', (data) => {
+    if (childProcess.stderr) {
+      childProcess.stderr.on('data', (data) => {
         outputChannel.append(data.toString());
       });
     }
 
-    rsyncProcess.on('close', (code) => {
+    childProcess.on('close', (code) => {
       if (code === 0) {
-        vscode.window.showInformationMessage(`Rsync successful. Files downloaded to ${destinationPath}`);
+        vscode.window.showInformationMessage(`Command successful. Files downloaded to ${destinationPath}`);
       } else {
-        vscode.window.showErrorMessage(`Rsync failed with exit code ${code}. Check the output for more details.`);
+        vscode.window.showErrorMessage(`Command failed with exit code ${code}. Check the output for more details.`);
       }
     });
   });

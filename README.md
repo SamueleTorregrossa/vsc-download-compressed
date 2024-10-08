@@ -25,6 +25,8 @@ When connected to a remote SSH environment in Visual Studio Code, you can right-
 
 1. **Package the Extension**:
    ```sh
+   npm install -g typescript
+   npm i --save-dev @types/jest
    npm install -g vsce
    vsce package
    ```
