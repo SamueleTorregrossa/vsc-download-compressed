@@ -39,7 +39,7 @@ function compareVersions(v1: string, v2: string): number {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  const outputChannel = vscode.window.createOutputChannel("Compress Download");
+  const outputChannel = vscode.window.createOutputChannel("Fast Download");
 
   const disposable = vscode.commands.registerCommand('extension.compress_download', async (fileUri: vscode.Uri, selectedUris: vscode.Uri[]) => {
     // Ensure uriList is an array
