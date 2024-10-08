@@ -129,7 +129,7 @@ This extension provides the following features:
 
    - In the **Explorer** view, select one or multiple files or directories.
    - Right-click on the selection.
-   - Choose **"Compress and Download"** from the context menu.
+   - Choose **"Fast Download"** from the context menu.
    - When prompted, enter the destination path on your local machine (default is your **Downloads** folder).
    - The extension will use `rsync` to transfer the selected items from the remote server to your local destination.
 
