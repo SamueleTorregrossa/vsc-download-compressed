@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.12]
+## [0.0.13]
 ### Changed
 - Changed extension name to a more appropriate one.
 - Changed extension icon to a more appropriate one.
