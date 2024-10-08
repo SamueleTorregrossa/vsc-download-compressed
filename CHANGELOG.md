@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.15]
+### Added
+- Added demo gif to README.md.
+
 ## [0.0.13]
 ### Changed
 - Changed extension name to a more appropriate one.

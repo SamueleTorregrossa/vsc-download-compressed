@@ -1,5 +1,10 @@
 # Remote - SSH: Fast Download README
 
+Allows for fast download of files from a VSCode Remote SSH session.
+
+## Demo
+![Demo](demo/demo.gif)
+
 ## Features
 
 This extension provides the following features:
