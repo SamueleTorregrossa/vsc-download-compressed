@@ -81,7 +81,13 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     // Extract remote name from the first URI (assuming all URIs are from the same remote)
-    const remoteName = fileUri.authority.split('+')[1];
+    const remoteAuthority = fileUri.authority;
+    const remoteNameMatch = remoteAuthority.match(/ssh-remote\+(.+)/);
+    if (!remoteNameMatch) {
+      vscode.window.showErrorMessage('Could not determine remote host. Please ensure you are connected via SSH.');
+      return;
+    }
+    const remoteName = remoteNameMatch[1];
 
     // Construct remote file paths
     const remoteFiles = uriList.map(uri => {
@@ -89,7 +95,8 @@ export function activate(context: vscode.ExtensionContext) {
       return `"${remoteName}:${filePath}"`;
     });
 
-    const command = `rsync -P -avz ${remoteFiles.join(' ')} "${destinationPath}"`;
+    // Include SSH options to enforce BatchMode
+    const command = `rsync -P -avz -e "ssh -o BatchMode=yes" ${remoteFiles.join(' ')} "${destinationPath}"`;
 
     outputChannel.show(true);
     outputChannel.clear();
@@ -98,6 +105,8 @@ export function activate(context: vscode.ExtensionContext) {
     outputChannel.appendLine(`Running command: ${command}`);
 
     const childProcess = exec(command);
+
+    let sshAuthFailed = false;
 
     if (childProcess.stdout) {
       childProcess.stdout.on('data', (data) => {
@@ -108,11 +117,20 @@ export function activate(context: vscode.ExtensionContext) {
     if (childProcess.stderr) {
       childProcess.stderr.on('data', (data) => {
         outputChannel.append(data.toString());
+        if (data.toString().includes('Permission denied') || data.toString().includes('Authentication failed')) {
+          sshAuthFailed = true;
+        }
       });
     }
 
     childProcess.on('close', (code) => {
-      if (code === 0) {
+      if (sshAuthFailed) {
+        vscode.window.showErrorMessage('Passwordless SSH authentication is not set up for the remote host. Please set it up to use this extension.', 'Setup Guide').then(selection => {
+          if (selection === 'Setup Guide') {
+            vscode.env.openExternal(vscode.Uri.parse('https://www.ssh.com/academy/ssh/keygen'));
+          }
+        });
+      } else if (code === 0) {
         vscode.window.showInformationMessage(`Command successful. Files downloaded to ${destinationPath}`);
       } else {
         vscode.window.showErrorMessage(`Command failed with exit code ${code}. Check the output for more details.`);

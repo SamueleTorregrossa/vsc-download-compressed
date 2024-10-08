@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.9]
+### Added
+- Check for `rsync` installation on the local machine.
+- Check for passwordless SSH authentication configuration.
+
 ## [0.0.8]
 ### Added
 - Support for multi-file download.
