@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.17]
+### Added
+- Remember last download location for quicker subsequent downloads.
+
 ## [0.0.16]
 ### Added
 - Enhanced SSH Key Setup Instructions.
