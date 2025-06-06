@@ -261,21 +261,29 @@ SSH Key Setup Instructions
 
       // 5) At this point, we have verified rsync & passwordless SSH
       //    Prompt for a local download destination
+      const savedLastLocation = context.globalState.get<string>(
+        "lastDownloadLocation"
+      );
+
       const defaultDownloadLocation = vscode.workspace
         .getConfiguration("fastDownload")
         .get<string>("defaultDownloadLocation");
 
-      const destinationPath =
-        defaultDownloadLocation ||
-        (await vscode.window.showInputBox({
+      let destinationPath = defaultDownloadLocation;
+      if (!destinationPath) {
+        destinationPath = await vscode.window.showInputBox({
           prompt: "Enter the local destination path",
-          value: path.join(os.homedir(), "Downloads"),
-        }));
+          value: savedLastLocation || path.join(os.homedir(), "Downloads"),
+        });
+      }
 
       if (!destinationPath) {
         vscode.window.showErrorMessage("No destination path provided.");
         return;
       }
+
+      // Remember last chosen download location
+      context.globalState.update("lastDownloadLocation", destinationPath);
 
       // 6) Construct the rsync command
       const remoteFiles = uriList.map((uri) => {

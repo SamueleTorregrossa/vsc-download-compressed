@@ -13,6 +13,7 @@ Allows for fast and efficient downloads of files and directories from a **VSCode
 - **Rsync-Based Transfers**: Utilizes `rsync` for optimized and reliable synchronization between remote servers and your local machine.
 - **Automatic Rsync Installation and Version Check**: Automatically checks if `rsync` is installed and up-to-date on your local machine, providing guidance for installation or updates.
 - **Passwordless SSH Authentication Detection**: Detects if passwordless SSH authentication is not set up and provides clear instructions for configuration.
+- **Remembers Last Download Location**: Automatically suggests the previously used download directory for convenience.
 
 ## Benefits
 
