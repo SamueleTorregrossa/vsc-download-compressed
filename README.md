@@ -26,7 +26,15 @@ Allows for fast and efficient downloads of files and directories from a **VSCode
 2. **Remote SSH Extension**: The official **VSCode Remote - SSH** extension for connecting to remote servers.
 3. **Rsync**: Installed on both the local and remote machines.
    - **MacOS**: Ensure `rsync` version **3.0.0** or higher is installed (the default version on macOS is outdated).
+   - **Linux**: Most distributions include rsync by default.
+   - **Windows**: The extension can automatically install `cwRsync` using Scoop package manager.
 4. **Passwordless SSH Authentication**: Configure SSH key-based authentication for seamless operation.
+
+## Platform Support
+
+- ✅ **macOS**: Full support with Homebrew for rsync installation
+- ✅ **Linux**: Full support with apt-get for rsync installation  
+- ✅ **Windows**: Supported via Scoop package manager and cwRsync
 
 ## Installation
 
@@ -70,11 +78,12 @@ Allows for fast and efficient downloads of files and directories from a **VSCode
 
 ## Known Issues
 
-1. **Windows Support**:
-   - The extension currently does not support Windows as the local machine.
-
-2. **Outdated Rsync on macOS**:
+1. **Outdated Rsync on macOS**:
    - The default version of `rsync` on macOS is outdated. Use Homebrew to install or update `rsync` to version **3.0.0** or higher.
+
+2. **Windows Prerequisites**:
+   - Windows users need to have Scoop package manager installed for automatic rsync installation.
+   - Alternatively, manually install cwRsync, Git Bash, or WSL for SSH/rsync functionality.
 
 3. **Passwordless SSH Authentication**:
    - Passwordless SSH authentication is required for the extension to function properly. If not set up, the extension will guide you through the setup process.
