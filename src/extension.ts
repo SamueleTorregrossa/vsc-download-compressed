@@ -83,6 +83,25 @@ function installRsync(): Promise<void> {
 }
 
 /**
+ * Parses the remote name from the authority string.
+ * The authority might be a plain hostname or a hex-encoded JSON object
+ * as used by Cursor.
+ * @param authority The authority string after "ssh-remote+"
+ * @returns The actual hostname/remote name (e.g., "user@host" or "host")
+ */
+function parseRemoteName(authority: string): string {
+  // Check if authority contains hex-encoded "hostName" (686f73744e616d65)
+  // Cursor encodes connection info as hex JSON like:
+  // "7b22686f73744e616d65223a22686f7374227d" -> {"hostName":"host"}
+  if (authority.includes('686f73744e616d65')) {
+    const decoded = Buffer.from(authority, 'hex').toString('utf8');
+    const parsed = JSON.parse(decoded);
+    return parsed.user ? `${parsed.user}@${parsed.hostName}` : parsed.hostName;
+  }
+  return authority;
+}
+
+/**
  * Tests if passwordless SSH is configured for the remote by attempting
  * an SSH connection with BatchMode=yes (i.e., no password prompts).
  * @param remoteName Remote server identifier (e.g., user@host).
@@ -140,7 +159,7 @@ export function activate(context: vscode.ExtensionContext) {
         );
         return;
       }
-      const remoteName = match[1]; // "user@host"
+      const remoteName = parseRemoteName(match[1]); // Parse hex-encoded JSON or plain "user@host"
 
       // 3) Which files do we want to download?
       const uriList = selectedUris || [fileUri];
