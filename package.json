@@ -1,16 +1,16 @@
 {
-  "name": "compress-download-extension",
-  "displayName": "Remote - SSH: Fast Download",
+  "name": "compress-download-extension-jsjm",
+  "displayName": "Remote - SSH: Fast Download(Enhanced)",
   "description": "A simple extension to more quickly download files from a remote server in VSCode.",
-  "version": "0.0.16",
-  "publisher": "samueletorregrossa",
+  "version": "0.0.17",
+  "publisher": "jsjm",
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.60.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SamueleTorregrossa/vsc-download-compressed"
+    "url": "https://github.com/Jinshijiming/vsc-download-compressed"
   },
   "categories": [
     "Other"
@@ -54,8 +54,7 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install && node ./scripts/checkAndInstallRsync.js"
+    "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
     "@types/jest": "^29.5.13",
