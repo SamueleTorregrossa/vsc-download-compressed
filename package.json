@@ -1,8 +1,8 @@
 {
-  "name": "compress-download-extension-jsjm",
-  "displayName": "Remote - SSH: Fast Download(Enhanced)",
+  "name": "compress-download-extension-enhanced",
+  "displayName": "SSH-Remote Better Download",
   "description": "A simple extension to more quickly download files from a remote server in VSCode.",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "publisher": "jsjm",
   "icon": "icon.png",
   "engines": {

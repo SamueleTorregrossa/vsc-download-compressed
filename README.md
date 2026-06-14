@@ -1,4 +1,6 @@
-# Remote - SSH: Fast Download
+# Remote - SSH: Fast Download (JSJM Fork)
+
+> **Disclaimer & Acknowledgement**: This is a modified fork of the original [vsc-download-compressed](https://github.com/SamueleTorregrossa/vsc-download-compressed) extension created by Samuele Torregrossa. It includes command injection security fixes, enhanced Windows SCP support, and UI path-selection improvements.
 
 Allows for fast and efficient downloads of files and directories from a **VSCode Remote SSH** session to your local machine.
 
@@ -74,7 +76,11 @@ Allows for fast and efficient downloads of files and directories from a **VSCode
 
 ## Contributing
 
-Contributions are welcome! Please submit issues or pull requests to the [GitHub repository](https://github.com/SamueleTorregrossa/vsc-download-compressed).
+Contributions are welcome! Please submit issues or pull requests to the [GitHub repository](https://github.com/Jinshijiming/vsc-download-compressed).
+
+## Acknowledgements
+
+Special thanks to **Samuele Torregrossa** for creating the original [vsc-download-compressed](https://github.com/SamueleTorregrossa/vsc-download-compressed) extension. This fork builds upon their excellent work under the terms of the MIT License.
 
 ## License
 

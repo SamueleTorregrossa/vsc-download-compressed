@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { exec } from "child_process";
+import { exec, execFile } from "child_process";
 import * as path from "path";
 import * as os from "os";
 import * as fs from "fs";
@@ -110,8 +110,7 @@ function installRsync(): Promise<void> {
  */
 function testPasswordlessSSH(remoteName: string): Promise<boolean> {
   return new Promise((resolve) => {
-    const testCommand = `ssh -o BatchMode=yes "${remoteName}" exit`;
-    exec(testCommand, (error) => {
+    execFile("ssh", ["-o", "BatchMode=yes", remoteName, "exit"], (error) => {
       if (error) {
         // Non-zero exit could be from permission denied or host not found
         resolve(false);
@@ -348,35 +347,36 @@ export function activate(context: vscode.ExtensionContext) {
 
       // 6) Construct the transfer command (rsync for Unix, scp for Windows)
       const platform = os.platform();
-      let command: string;
+      let executable: string;
+      const args: string[] = [];
 
       if (platform === "win32") {
         // Use scp on Windows
-        const remoteFiles = uriList.map((uri) => {
-          return `"${remoteName}:${uri.path}"`;
+        executable = "scp";
+        args.push("-o", "BatchMode=yes", "-r");
+        uriList.forEach((uri) => {
+          args.push(`${remoteName}:${uri.path}`);
         });
-        // scp doesn't support multiple source files in one command like rsync
-        // We'll handle multiple files by copying them one by one
-        command = `scp -o BatchMode=yes -r ${remoteFiles.join(" ")} "${destinationPath}"`;
+        args.push(destinationPath);
       } else {
         // Use rsync on Unix-like systems
-        const remoteFiles = uriList.map((uri) => {
-          return `"${remoteName}:${uri.path}"`;
+        executable = "rsync";
+        args.push("-P", "-avz", "-e", "ssh -o BatchMode=yes");
+        uriList.forEach((uri) => {
+          args.push(`${remoteName}:${uri.path}`);
         });
-        command = `rsync -P -avz -e "ssh -o BatchMode=yes" ${remoteFiles.join(
-          " "
-        )} "${destinationPath}"`;
+        args.push(destinationPath);
       }
 
       // 7) Execute the transfer command
       // outputChannel.show(true);
       outputChannel.clear();
       outputChannel.appendLine(`Platform: ${platform}`);
-      outputChannel.appendLine(`Transfer method: ${platform === "win32" ? "scp" : "rsync"}`);
+      outputChannel.appendLine(`Transfer method: ${executable}`);
       outputChannel.appendLine(`Remote files: ${uriList.map((uri) => `${remoteName}:${uri.path}`).join(" ")}`);
-      outputChannel.appendLine(`Running: ${command}`);
+      outputChannel.appendLine(`Running: ${executable} ${args.join(" ")}`);
 
-      exec(command, (error, stdout, stderr) => {
+      execFile(executable, args, (error, stdout, stderr) => {
         if (error) {
           if (
             stderr.includes("Permission denied") ||
