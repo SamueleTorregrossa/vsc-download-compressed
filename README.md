@@ -1,4 +1,6 @@
-# Remote - SSH: Fast Download
+# Remote - SSH: Fast Download (JSJM Fork)
+
+> **Disclaimer & Acknowledgement**: This is a modified fork of the original [vsc-download-compressed](https://github.com/SamueleTorregrossa/vsc-download-compressed) extension created by Samuele Torregrossa. It includes command injection security fixes, enhanced Windows SCP support, and UI path-selection improvements.
 
 Allows for fast and efficient downloads of files and directories from a **VSCode Remote SSH** session to your local machine.
 
@@ -8,6 +10,7 @@ Allows for fast and efficient downloads of files and directories from a **VSCode
 
 ## Features
 
+- 保存路径弹出窗口
 - **Fast File Downloads**: Quickly download files or directories from remote servers connected via SSH directly to your local machine.
 - **Multiple File Selection**: Supports downloading multiple files or directories simultaneously.
 - **Rsync-Based Transfers**: Utilizes `rsync` for optimized and reliable synchronization between remote servers and your local machine.
@@ -26,39 +29,29 @@ Allows for fast and efficient downloads of files and directories from a **VSCode
 2. **Remote SSH Extension**: The official **VSCode Remote - SSH** extension for connecting to remote servers.
 3. **Rsync**: Installed on both the local and remote machines.
    - **MacOS**: Ensure `rsync` version **3.0.0** or higher is installed (the default version on macOS is outdated).
+   - **Linux**: Most distributions include rsync by default.
 4. **Passwordless SSH Authentication**: Configure SSH key-based authentication for seamless operation.
 
-## Installation
+## Platform Support
 
-### From the VSCode Marketplace
-
-- Open **Visual Studio Code**.
-- Go to the **Extensions** view (`Ctrl+Shift+X` or `Cmd+Shift+X`).
-- Search for **"SSH Fast Download"** or **"compress-download-extension"**.
-- Click **Install**.
-
-### Manual Installation
-
-- If you have the `.vsix` file:
-  - Open **Visual Studio Code**.
-  - Go to the **Extensions** view.
-  - Click on the three-dot menu (`...`) in the top-right corner.
-  - Select **"Install from VSIX..."**.
-  - Choose the `.vsix` file you downloaded or packaged.
+- ✅ **macOS**: Full support with Homebrew for rsync installation
+- ✅ **Linux**: Full support with apt-get for rsync installation
+- ✅ **Windows**: Supported via scp
 
 ## Usage
 
 1. **Connect to a Remote SSH Session**:
-   - Use the **Remote - SSH** extension to connect to your remote server.
 
+   - Use the **Remote - SSH** extension to connect to your remote server.
 2. **Download Files or Directories**:
+
    - In the **Explorer** view, select one or multiple files or directories.
    - Right-click on the selection.
    - Choose **"Fast Download"** from the context menu.
    - When prompted, enter the destination path on your local machine (default is your **Downloads** folder).
    - The extension will use `rsync` to transfer the selected items from the remote server to your local destination.
-
 3. **Monitor Progress**:
+
    - The extension will display progress and output in the **"Fast Download"** output channel.
    - Notifications will inform you when the download is complete or if any errors occur.
 
@@ -70,17 +63,24 @@ Allows for fast and efficient downloads of files and directories from a **VSCode
 
 ## Known Issues
 
-1. **Windows Support**:
-   - The extension currently does not support Windows as the local machine.
+1. **Outdated Rsync on macOS**:
 
-2. **Outdated Rsync on macOS**:
    - The default version of `rsync` on macOS is outdated. Use Homebrew to install or update `rsync` to version **3.0.0** or higher.
+2. **Windows Prerequisites**:
 
+   - Windows users need to have Scoop package manager installed for automatic rsync installation.
+   - Alternatively, manually install cwRsync, Git Bash, or WSL for SSH/rsync functionality.
 3. **Passwordless SSH Authentication**:
+
    - Passwordless SSH authentication is required for the extension to function properly. If not set up, the extension will guide you through the setup process.
 
 ## Contributing
-Contributions are welcome! Please submit issues or pull requests to the [GitHub repository](https://github.com/SamueleTorregrossa/vsc-download-compressed).
+
+Contributions are welcome! Please submit issues or pull requests to the [GitHub repository](https://github.com/Jinshijiming/vsc-download-compressed).
+
+## Acknowledgements
+
+Special thanks to **Samuele Torregrossa** for creating the original [vsc-download-compressed](https://github.com/SamueleTorregrossa/vsc-download-compressed) extension. This fork builds upon their excellent work under the terms of the MIT License.
 
 ## License
 
